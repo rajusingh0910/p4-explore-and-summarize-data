@@ -1,5 +1,5 @@
-#Red Wine Quality
-I determine how the quality of the red wine is influenced by its chemical composition
+#White Wine Quality
+I determine how the quality of the white wine is influenced by its chemical composition
 
 
 # Set global options
@@ -615,3 +615,4 @@ Variance to the quality vs. alcohol correlation can be explained by the level of
 ##Reflection
 
 The white wine data set contains information on almost 4900 white wine samples of variants of the Portuguese "Vinho Verde" wine. I started out by trying to understand individual variables and their distributions in my sample. I then went on to explore which variables affected the quality of wine, began to work out what the main causes of variance in my dataset were and created a linear model to estimate quality based on alcohol level, volatile.acidity, chlorides and bound.sulfur.dioxide. From my research I expected the sweet to acidity ratio to have more impact on the quality of wine, but in my data exploration this did not appear to be the case. The model would likely not cope with wines that have a strength higher than those in my sample, and may predict a value outside of the limit that the scoring system allowed (10). I was also not able to fully classify the reason for outliers in the dataset according to the data provided. This may have been caused by many different things, for example hidden variables, testing bias, data quality/accuracy. I would have liked price to also be a variable in the dataset so that I could investigate wheteher price and quality were also correlated.
+
