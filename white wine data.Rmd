@@ -3,8 +3,8 @@ title: "White Wine Data"
 author: "Raju Singh"
 date: "August 22, 2017"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 # White Wine Quality
 I determine how the quality of the white wine is influenced by its chemical composition
@@ -12,7 +12,7 @@ I determine how the quality of the white wine is influenced by its chemical comp
 # Set global options
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
 ```
 
 # Load the Data
@@ -122,6 +122,7 @@ ggplot(aes(x=log2(residual.sugar)), data=wine) +
 ```
 
 Looks like this distribution maybe bimodal with 2 peaks 1 around 1 and the other around 3, perhaps for different qualities of wine, maybe some fruitier, and others dry?
+
 
 ## Plotting for free sulfur di-oxide, total sulfur di-oxide, sulphates:
 
@@ -266,16 +267,17 @@ print(by_alcohol_bucket)
 
 Here I have split the alcohol levels into buckets, so that we can look at the data in a slightly different way. You see a very evidentially rise in the median quality scores as alcohol level increases.
 
+
 ```{r}
 ggplot(aes(x=density, y=quality), data=wine) +
   geom_point()
 
 ggplot(aes(x=density, y=quality), data=wine) +
-  geom_point(alpha=1/4) +
+  geom_point(alpha=1/2) +
   xlim(c(quantile(wine$density, 0.01), quantile(wine$density, 0.99)))
 
 ggplot(aes(x=density, y=quality), data=wine) +
-  geom_jitter(alpha=1/4) +
+  geom_jitter(alpha=1/2) +
   xlim(c(quantile(wine$density, 0.01), quantile(wine$density, 0.99))) +
   geom_smooth()
 ```
@@ -291,12 +293,12 @@ ggplot(aes(x=chlorides, y=quality), data=wine) +
   xlim(c(quantile(wine$chlorides, 0.01), quantile(wine$chlorides, 0.99)))
 
 ggplot(aes(x=chlorides, y=quality), data=wine) +
-  geom_jitter(alpha=1/4) +
+  geom_jitter(alpha=1/2) +
   xlim(c(quantile(wine$chlorides, 0.01), quantile(wine$chlorides, 0.99))) +
   geom_smooth()
 
 ggplot(aes(x=chlorides, y=quality), data=wine) +
-  geom_jitter(alpha=1/4) +
+  geom_jitter(alpha=1/2) +
   xlim(c(quantile(wine$chlorides, 0.01), quantile(wine$chlorides, 0.96))) +
   geom_smooth()
 
@@ -568,17 +570,24 @@ As the alcohol content in wine increases the quality increases. Quality is posit
 ## Plot Three
 
 ```{r}
-ggplot(aes(x=alcohol, y=quality, color=cat ), data=wine)+
+ggplot(aes(x=quality, y=alcohol, fill=quality), data=wine) +
   ggtitle("Outlier classification in Vinho Verde wine") +
-  ylab("Quality score based on sensory data (between 0 and 10)") +
-  xlab("Wine alcohol level (% by volume)") +
-  geom_jitter() +
-  guides(color = guide_legend(title = "Outlier classifier"))
+  xlab("Quality score based on sensory data (between 0 and 10)") +
+  ylab("Wine alcohol level (% by volume)") +
+  guides(fill=FALSE) +
+  geom_boxplot()
 ```
 
 Variance to the quality vs. alcohol correlation can be explained by the level of volatile .acidity being too high, the level of bound.sulphur.dioxide being too low or high level of chlorides.
 
 ## Reflection
 
-The white wine data set contains information on almost 4900 white wine samples of variants of the Portuguese "Vinho Verde" wine. I started out by trying to understand individual variables and their distributions in my sample. I then went on to explore which variables affected the quality of wine, began to work out what the main causes of variance in my dataset were and created a linear model to estimate quality based on alcohol level, volatile.acidity, chlorides and bound.sulfur.dioxide. From my research I expected the sweet to acidity ratio to have more impact on the quality of wine, but in my data exploration this did not appear to be the case. The model would likely not cope with wines that have a strength higher than those in my sample, and may predict a value outside of the limit that the scoring system allowed (10). I was also not able to fully classify the reason for outliers in the dataset according to the data provided. This may have been caused by many different things, for example hidden variables, testing bias, data quality/accuracy. I would have liked price to also be a variable in the dataset so that I could investigate wheteher price and quality were also correlated.
+The white wine data set contains information on almost 4900 white wine samples of variants of the Portuguese "Vinho Verde" wine. 
+I started out by trying to understand individual variables and their distributions in my sample. 
+I then went on to explore which variables affected the quality of wine, began to work out what the main causes of variance in my dataset were and created a linear model to estimate quality based on alcohol level, volatile.acidity, chlorides and bound.sulfur.dioxide. 
+From my research I expected the sweet to acidity ratio to have more impact on the quality of wine, but in my data exploration this did not appear to be the case. 
+The model would likely not cope with wines that have a strength higher than those in my sample, and may predict a value outside of the limit that the scoring system allowed (10). 
+I was also not able to fully classify the reason for outliers in the dataset according to the data provided. 
+This may have been caused by many different things, for example hidden variables, testing bias, data quality /accuracy. 
+I would have liked price to also be a variable in the dataset so that I could investigate wheteher price and quality were also correlated.
 
