@@ -1,7 +1,7 @@
 ---
 title: "White Wine Data"
 author: "Raju Singh"
-date: "August 22, 2017"
+date: "August 25, 2017"
 output:
   html_document: default
   pdf_document: default
@@ -378,18 +378,17 @@ The strongest correlation was between residual sugar and density (0.839). I assu
 
 
 ```{r}
-ggplot(aes(x=alcohol, y=quality, color=density), data=wine) +
-  geom_jitter()
+ggplot(aes(x=quality, color=density), data = wine)+
+       geom_bar()+
+       xlab("Wine Quality rating") + ylab("Count") +
+       ggtitle("Bar of Wine Quality 1")
 
-
-ggplot(aes(x=alcohol, y=quality, color=alcohol.bucket), data=wine) +
-  geom_jitter()
 ```
 
 Lets convert quality to a factor since they are a fixed set of integers.
 
 ```{r}
-wine$quality <- ordered(wine$quality , c(3,4,5,6,7,8,9))
+  wine$quality <- ordered(wine$quality , c(3,4,5,6,7,8,9))
 ```
 
 
