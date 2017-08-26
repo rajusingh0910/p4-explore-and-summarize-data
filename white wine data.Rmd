@@ -1,10 +1,10 @@
 ---
 title: "White Wine Data"
 author: "Raju Singh"
-date: "August 25, 2017"
+date: "August 26, 2017"
 output:
   html_document: default
-  pdf_document: default
+  
 ---
 # White Wine Quality
 I determine how the quality of the white wine is influenced by its chemical composition
@@ -228,11 +228,17 @@ Judging by the sample it looks like this variety of grape is used to produce mai
 # Bivariate Plot:
 
 ```{r}
+
 library(ggplot2)
 library(GGally)
 ggpairs(wine,axisLabels = 'none',
         columns = 1:5)
 ```
+
+There are some obvious correlations that I dont find very intresting such as, level of citric acid and fixed acidity, level of free sulphur dioxide and bound sulphur dioxide, level of fixed acidity and ph.
+
+Quality seems to be affected to some extent in decreasing levels of influence by alcohol level (0.436 correlation), density (-0.307), chlorides(-0.21), bound.sulphur.dioxide (-0.21) and volatile acidity(-0.195), i would like to examine these more.
+
 
 ```{r}
 ggplot(aes(x=alcohol, y=quality), data=wine) +
@@ -375,6 +381,8 @@ The strongest correlation was between residual sugar and density (0.839). I assu
 # MULTIVARIATE SECTION
 
 # Multivariate Plots
+
+This time I have used the type of wine to differentiate some of the points to see if this affects any of the relationships.
 
 
 ```{r}
@@ -569,12 +577,12 @@ As the alcohol content in wine increases the quality increases. Quality is posit
 ## Plot Three
 
 ```{r}
-ggplot(aes(x=quality, y=alcohol, fill=quality), data=wine) +
+ggplot(aes(x=alcohol, y=quality, color=cat ), data=wine)+
   ggtitle("Outlier classification in Vinho Verde wine") +
-  xlab("Quality score based on sensory data (between 0 and 10)") +
-  ylab("Wine alcohol level (% by volume)") +
-  guides(fill=FALSE) +
-  geom_boxplot()
+  ylab("Quality score based on sensory data (between 0 and 10)") +
+  xlab("Wine alcohol level (% by volume)") +
+  geom_jitter() +
+  guides(color = guide_legend(title = "Outlier classifier"))
 ```
 
 Variance to the quality vs. alcohol correlation can be explained by the level of volatile .acidity being too high, the level of bound.sulphur.dioxide being too low or high level of chlorides.
